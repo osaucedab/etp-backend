@@ -9,8 +9,6 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
-  environment:
-    MONGODB_URI: ${env:MONGODB_URI}
 
 functions:
   main:
