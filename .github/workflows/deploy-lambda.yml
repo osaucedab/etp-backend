@@ -1,28 +1,26 @@
 name: lambda-deployment-with-github-action-test
 
-on: 
+on:
   push:
-    branches:
-        master # You can use any of your root or master branch name
-  
-jobs:
-  deploy-lambda:
-  	runs-on: ubuntu-latest
+    branches: master # You can use any of your root or master branch name
+
+jobs: #Workflow run is made up of one or more jobs
+  deploy_lambda:
+    runs-on: ubuntu-latest #Through which Server OS we need to Work (type of machine to run the job on)
     steps:
-      - uses: actions/checkout@v2
-      
-      - uses: actions/setup-node@v1
+      #Using versioned actions
+      - uses: actions/checkout@v2 # --> Reference a specific version
+      - uses: actions/setup-node@v2 # --> To Setup the Server With Node Env
         with:
-          node-version: '14.x'
-          
+          node-version: '14' #--> Specify the Version of the Node
       - name: Install serverless globally
         run: npm install -g serverless
-      
+
       - name: Configure serverless authentication
         run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Install npm dependencies
         run: npm ci
-     
+
       - name: Deploy lambda function
         run: sls deploy
