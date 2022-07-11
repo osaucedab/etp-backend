@@ -9,10 +9,8 @@ jobs:
   deploy-lambda:
   	runs-on: ubuntu-latest
     steps:
-      - name: Checkout to repo
       - uses: actions/checkout@v2
-
-      - name: Setup node environment
+      
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
