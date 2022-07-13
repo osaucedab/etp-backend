@@ -16,6 +16,12 @@ jobs: #Workflow run is made up of one or more jobs
       - name: Install serverless globally
         run: npm install -g serverless
 
+      - name: Install NestJS
+        run: npm i -g @nestjs/cli
+
+      - name: Build application
+        run: npm run build
+
       - name: Configure serverless authentication
         run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
