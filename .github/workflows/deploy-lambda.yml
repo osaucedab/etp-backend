@@ -28,11 +28,11 @@ jobs: #Workflow run is made up of one or more jobs
       - name: Build application
         run: npm run build
 
-      - name: 'Create env file'
-        run: |
-          touch .env
-          echo API_MONGODB_URIKEY=${{ secrets.MONGODB_URI }} >> .env
-          cat .env
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          file_name: .env
 
       - name: Deploy lambda function
         run: sls deploy
