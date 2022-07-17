@@ -17,6 +17,7 @@ export class UsersService {
         createUserInput.password,
         salt,
       );
+      createUserInput.email = createUserInput.email.toLowerCase();
       const user = new this.usersModel(createUserInput);
       return user.save();
     } catch (error) {
@@ -33,7 +34,9 @@ export class UsersService {
   }
 
   async findOne(email: string) {
-    const user = (await this.usersModel.findOne({ email })).toObject();
+    const user = (
+      await this.usersModel.findOne({ email: email.toLowerCase() })
+    ).toObject();
     if (user === null) {
       throw new Error('User does not exist');
     } else {
